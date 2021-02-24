@@ -18,9 +18,8 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth']] , function(){
 
-    Route::get('/', 'HomeController@index')->name('main');
-    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/', 'FrontEndController@index')->name('main');
+    Route::get('/home', 'FrontEndController@index')->name('home');
+    Route::get('/product/{id}','FrontEndController@show')->name('product.detail');
     Route::resource('products','ProductController');
-
-
 });
