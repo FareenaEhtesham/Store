@@ -23,22 +23,25 @@
             <div class="col-lg-6 col-lg-offset-1 col-md-6 col-md-offset-1 col-sm-6 col-sm-offset-1 col-xs-12 col-xs-offset-0">
                 <div class="product-details-info">
                     <div class="product-details-info-price">${{$display->price}}</div>
-                    <h3 class="product-details-info-title">{{$display->title}}</h3>
+                    <h3 class="product-details-info-title">{{$display->name}}</h3>
                     <p class="product-details-info-text">
                     {{$display->description}}
                     </p>
 
+                   <form method="POST" action="{{route('cart.add',$display->id)}}">
+                   {{csrf_field()}}
                     <div class="quantity">
-                        <a href="#" class="quantity-minus">-</a>
-                        <input title="Qty" class="email input-text qty text" type="text" value="2">
-                        <a href="#" class="quantity-plus">+</a>
-                    </div>
-
-                    <a href="19_cart.html" class="btn btn-medium btn--primary">
-                        <span class="text">Add to Cart</span>
-                        <i class="seoicon-commerce"></i>
-                        <span class="semicircle"></span>
-                    </a>
+                            <a href="#" class="quantity-minus">-</a>
+                            <input title="Qty" name="quantity" class="email input-text qty text" type="text" value="1">
+                            <a href="#" class="quantity-plus">+</a>
+                        </div>
+                  
+                        <button class="btn btn-medium btn--primary">
+                            <span class="text">Add to Cart</span>
+                            <i class="seoicon-commerce"></i>
+                            <span class="semicircle"></span>
+                        </button>
+                   </form>
                 </div>
             </div>
         </div>
