@@ -59,10 +59,12 @@ save as qty in cart not quantity -->
                                 <td class="product-quantity">
 
                                     <div class="quantity">
-                                        <a href="#" class="quantity-minus">-</a>
+                                        <a href="{{route('cart.dec',[$cart_item->rowId,$cart_item->qty])}}" 
+                                        class="quantity-minus">-</a>
                                         <input title="Qty" class="email input-text qty text" type="text"
                                         placeholder="1" readonly value="{{$cart_item->qty}}">
-                                        <a href="#" class="quantity-plus">+</a>
+                                        <a href="{{route('cart.inc',[$cart_item->rowId,$cart_item->qty])}}" 
+                                        class="quantity-plus">+</a>
                                     </div>
 
                                 </td>
@@ -101,8 +103,8 @@ save as qty in cart not quantity -->
 
                     <div class="cart-total">
                         <h3 class="cart-total-title">Cart Totals</h3>
-                        <h5 class="cart-total-total">Total: <span class="price">$100.97</span></h5>
-                        <a href="20_checkout.html" class="btn btn-medium btn--light-green btn-hover-shadow">
+                        <h5 class="cart-total-total">Total: <span class="price">${{Cart::total()}}</span></h5>
+                        <a href="/checkout" class="btn btn-medium btn--light-green btn-hover-shadow">
                             <span class="text">Checkout</span>
                             <span class="semicircle"></span>
                         </a>

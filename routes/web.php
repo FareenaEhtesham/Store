@@ -24,5 +24,9 @@ Route::group(['middleware' => ['auth']] , function(){
     Route::post('/cart/add/{id}','ShoppingController@Add_To_Cart')->name('cart.add');
     Route::get('/cart','ShoppingController@display')->name('cart');
     Route::get('/cart/remove/{id}','ShoppingController@Remove_Cart')->name('cart.delete');
+    Route::get('/cart/inc/{id}/{qty}','ShoppingController@increment')->name('cart.inc');
+    Route::get('/cart/dec/{id}/{qty}','ShoppingController@decrement')->name('cart.dec');
+    Route::get('/cart/addOne/{id}','ShoppingController@single_Cart')->name('cart.single');
+    Route::get('/checkout','ShoppingController@Checkout');
     Route::resource('products','ProductController');
 });

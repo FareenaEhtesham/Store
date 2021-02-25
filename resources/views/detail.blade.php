@@ -31,9 +31,9 @@
                    <form method="POST" action="{{route('cart.add',$display->id)}}">
                    {{csrf_field()}}
                     <div class="quantity">
-                            <a href="#" class="quantity-minus">-</a>
+                            <a href="#" class="quantity-minus quantity-minus-a">-</a>
                             <input title="Qty" name="quantity" class="email input-text qty text" type="text" value="1">
-                            <a href="#" class="quantity-plus">+</a>
+                            <a href="#" class="quantity-plus quantity-plus-a">+</a>
                         </div>
                   
                         <button class="btn btn-medium btn--primary">

@@ -38,4 +38,33 @@ class ShoppingController extends Controller
         Cart::remove($id);
         return redirect()->route('cart');
     }
+
+    public function increment($id,$qty){
+
+        Cart::update($id,$qty+1);
+        return redirect()->back();
+    }
+
+    public function decrement($id,$qty){
+
+        Cart::update($id,$qty-1);
+        return redirect()->back();
+    }
+
+    public function single_Cart($id){
+
+        $product=Product::findorFail($id);
+
+        $cartItem = Cart::add(['id' => $product->id, 'name' => $product->name,
+        'qty' => 1, 'price' => $product->price, 
+        'weight' => 550]);
+
+        Cart::associate($cartItem->rowId, 'App\Models\Product');
+        return redirect()->route('cart');
+
+    }
+
+    public function Checkout(){
+        return view('checkout');
+    }
 }
