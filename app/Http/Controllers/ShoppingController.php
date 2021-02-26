@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Cart;
+use Stripe;
+use Mail;
+use Session;
 
 class ShoppingController extends Controller
 {
@@ -22,6 +25,7 @@ class ShoppingController extends Controller
         // dd($cart);
 
         Cart::associate($cartItem->rowId, 'App\Models\Product');
+        Session::flash('success','Product added in cart');
         return redirect()->route('cart');
        
     }
@@ -36,7 +40,8 @@ class ShoppingController extends Controller
         //Cart::remove() and Cart::get() takes rowId as an argument so we pass 
         //rowId in cart.blade.php
         Cart::remove($id);
-        return redirect()->route('cart');
+        Session::flash('success','Successfully Removed');
+        return redirect('cart');
     }
 
     public function increment($id,$qty){
@@ -60,11 +65,29 @@ class ShoppingController extends Controller
         'weight' => 550]);
 
         Cart::associate($cartItem->rowId, 'App\Models\Product');
+        Session::flash('success','Product added in cart');
         return redirect()->route('cart');
 
     }
 
     public function Checkout(){
         return view('checkout');
+    }
+
+    public function payment(){
+        // dd(request()->all());
+        Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+        Stripe\Charge::create ([
+                "amount" => Cart::total()* 100,
+                "currency" => "usd",
+                "source" => request()->stripeToken,
+                "description" => "Purchase Books in a reasonable price" 
+        ]);
+        //we have to destroy the cart as all items have been purchased    
+        Cart::destroy();
+        Mail::to(request()->stripeEmail)->send(new \App\Mail\SendMail);
+        Session::flash('success','Purchase Successfully! Kindly check your mail');
+        return redirect('/');
+            
     }
 }

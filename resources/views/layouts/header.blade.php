@@ -11,16 +11,14 @@
     <link rel="stylesheet" type="text/css" href="{{asset('app/css/grid.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('app/css/styles.css')}}">
 
-
     <!--Plugins styles-->
 
     <link rel="stylesheet" type="text/css" href="{{asset('app/css/jquery.mCustomScrollbar.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('app/css/swiper.min.css ')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('app/css/primary-menu.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('app/css/magnific-popup.css ')}}">
-
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
     <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
-
 </head>
 
 
@@ -53,6 +51,10 @@
                     </div>
 
                 </li>
+                <li><form action="{{route('logout')}}" method="POST">
+                {{@csrf_field()}}
+                <button>LOGOUT</button>
+                </form></li>
             </ul>
         </div>
 
@@ -74,10 +76,9 @@
             </div>
         </div>
     </div>
-
 @yield('content') 
 
-
+</div>
 <!-- Footer -->
 
 <footer class="footer">
@@ -103,7 +104,14 @@
 <script src="{{asset('app/js/velocity.min.js')}}"></script>
 <script src="{{asset('app/js/ScrollMagic.min.js')}}"></script>
 <script src="{{asset('app/js/animation.velocity.min.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
+<script>
+
+@if (Session::has('success'))
+    toastr.success('{{Session::get('success')}}');
+@endif    
+</script>
 <!-- ...end JS Script -->
 
 
