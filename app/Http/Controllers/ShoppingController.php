@@ -59,12 +59,13 @@ class ShoppingController extends Controller
     public function single_Cart($id){
 
         $product=Product::findorFail($id);
-
+        
         $cartItem = Cart::add(['id' => $product->id, 'name' => $product->name,
         'qty' => 1, 'price' => $product->price, 
         'weight' => 550]);
 
         Cart::associate($cartItem->rowId, 'App\Models\Product');
+        Cart::instance('wishlist')->store(auth()->user()->name);
         Session::flash('success','Product added in cart');
         return redirect()->route('cart');
 

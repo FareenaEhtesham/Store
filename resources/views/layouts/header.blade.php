@@ -35,12 +35,19 @@
 
                     <a href="#" class="js-cart-animate">
                         <i class="seoicon-basket"></i>
+                        @auth
                         <span class="cart-count">{{Cart::content()->count()}}</span>
+                        @endauth
                     </a>
 
                     <div class="cart-popup-wrap">
                         <div class="popup-cart">
+                        @if(Auth::check())
                             <h4 class="title-cart align-center">${{Cart::total()}}</h4>
+                        
+                        @else
+                        <h4 class="title-cart align-center">Happy Shopping</h4>
+                        @endif
                             <br/>
                             <a href="/cart">
                             <div class="btn btn-small btn--dark">
@@ -51,10 +58,12 @@
                     </div>
 
                 </li>
+                @if(Auth::check())
                 <li><form action="{{route('logout')}}" method="POST">
                 {{@csrf_field()}}
                 <button>LOGOUT</button>
                 </form></li>
+                @endif
             </ul>
         </div>
 

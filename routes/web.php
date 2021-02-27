@@ -30,5 +30,5 @@ Route::group(['middleware' => ['auth']] , function(){
     Route::get('/cart/addOne/{id}','ShoppingController@single_Cart')->name('cart.single');
     Route::get('/checkout','ShoppingController@Checkout');
     Route::post('/checkout','ShoppingController@payment')->name('cart.checkout');
-    Route::resource('products','ProductController');
+    Route::resource('products','ProductController')->middleware('admin');
 });
